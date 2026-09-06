@@ -1,4 +1,4 @@
-import Image from "next/image";
+import StatusBadge from "@/components/status-badge";
 type Stat = 
   {
     title:string;
@@ -19,19 +19,83 @@ const stats: Stat[] = [
     value: 2,
   },
 ]
+
+type ApplicationStatus = 
+  |"Applied"
+  |"Screening"
+  |"Interview"
+  |"Offer"
+  |"Rejected";
+
+type Application = {
+  id:number;
+  company:string;
+  position:string;
+  status:ApplicationStatus;
+  appliedAt:string;
+
+}
+
+const applications: Application[] = [
+  {
+    id:1,
+    company:"Google",
+    position:"Junior Software Engineer",
+    status:"Interview",
+    appliedAt:"Sep 5, 2026"
+  },
+  {
+    id:2,
+    company:"Meta",
+    position:"Backend Developer",
+    status:"Applied",
+    appliedAt:"Sep 10, 2026"
+  },
+  {
+    id:3,
+    company:"Telkom Indonesia",
+    position:"IT Support",
+    status:"Offer",
+    appliedAt:"Sep 15, 2026"
+  },
+  {
+    id:4,
+    company:"GoTo",
+    position:"Junior Engineer",
+    status:"Rejected",
+    appliedAt:"Sep 20, 2026"
+  }
+]
+function getStatusClass(status: ApplicationStatus){
+  switch(status){
+    case "Applied":
+      return "bg-blue-500/10 text-blue-400";
+    case "Screening":
+      return "bg-yellow-500/10 text-yellow-400";
+    case "Interview":
+      return "bg-purple-500/10 text-purple-400";
+    case "Offer":
+      return "bg-green-500/10 text-green-400";
+    case "Rejected":
+      return "bg-red-500/10 text-red-400";
+  }
+}
 export default function Home() {
   return (
-    <main className= "min-h-screen bg-zinc-950 text-white">
+    <main className= "min-h-screen flex bg-zinc-950 text-white">
+
       <aside className="w-64 border-r border-zinc-800 p-6">
         <h1 className="text-xl font-bold">
-          Job tracker
+          Job Track
         </h1>
+
         <nav className="mt-10 space-y-4 text-zinc-400">
           <p className="text-white">Dashboard</p>
           <p>Applications</p>
           <p>Analytics</p>
         </nav>
       </aside>
+
       <section className="flex-1 p-8">
         <h2 className="text-3xl font-bold">
           Dashboard
@@ -39,6 +103,7 @@ export default function Home() {
         <p className="mt-2 text-zinc-400">
           Track and manage your job applications.
         </p>
+        {/* stat cards section */}
         <div className="mt-8 grid grid-cols-3 gap-4">
           {stats.map((stat)=>(
             <div
@@ -54,6 +119,68 @@ export default function Home() {
             </div>
           ))}
         </div>
+
+        {/* job applications table */}
+        <div className="mt-10">
+          <div className="mb-4 flex items-center justify-between">
+            <div>
+              <h3 className="text-xl font-semibold">
+                Recent Applications
+              </h3>
+
+              <p className="text-sm text-zinc-400">
+                Your Latest Job Applications
+              </p>
+            </div>
+
+            <button className="rounded-lg bg-white px-4 py-2 text-sm font-medium text-black">
+              Add Application
+            </button>
+          </div>
+          <div className="overflow-hidden rounded-xl border border-zinc-800">
+            <table className="w-full text-left">
+              <thead className="border-b border-zinc-800 bg-zinc-900">
+                <tr>
+                  <th className="px-5 py-3 text-sm font-medium text-zinc-400">
+                    Company
+                  </th>
+                  <th className="px-5 py-3 text-sm font-medium text-zinc-400">
+                    Position 
+                  </th>
+                  <th className="px-5 py-3 text-sm font-medium text-zinc-400">
+                    Status
+                  </th>
+                  <th className="px-5 py-3 text-sm font-medium text-zinc-400">
+                    Applied At
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {applications.map((application) => (
+                  <tr
+                    key={application.id}
+                    className="border-b border-zinc-800 bg-zinc-950"
+                  >
+                    <td className="px-5 py-4">
+                      {application.company}
+                    </td>
+                    <td className="px-5 py-4 text-zinc-300">
+                      {application.position}
+                    </td>
+                    <td className="px-5 py-4">
+                      <StatusBadge status={application.status} />
+                    </td>
+                    <td className="px-5 py-4 text-zinc-400">
+                      {application.appliedAt}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+
       </section>
     </main>
   );
