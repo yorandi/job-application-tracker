@@ -1,4 +1,5 @@
 import StatusBadge from "@/components/status-badge";
+import Link from "next/link";
 type Stat = 
   {
     title:string;
@@ -90,9 +91,23 @@ export default function Home() {
         </h1>
 
         <nav className="mt-10 space-y-4 text-zinc-400">
-          <p className="text-white">Dashboard</p>
-          <p>Applications</p>
-          <p>Analytics</p>
+          <Link
+          href="/"
+          className="block text-white">
+            Dashboard
+          </Link>
+
+          <Link 
+          href="/applications"
+          className="block transition hover:text-white">
+            Applications
+          </Link>
+
+          <Link
+          href="/Analytics"
+          className="block transition hover:text-white">
+            Analytics
+          </Link>
         </nav>
       </aside>
 
@@ -179,8 +194,6 @@ export default function Home() {
             </table>
           </div>
         </div>
-
-
       </section>
     </main>
   );
