@@ -1,0 +1,2 @@
+-- CreateEnum
+CREATE TYPE "ApplicationStatus" AS ENUM ('APPLIED', 'SCREENING', 'INTERVIEW', 'OFFER', 'REJECTED');

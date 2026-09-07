@@ -1,12 +1,13 @@
 import Link from "next/link";
 import StatusBadge from "@/components/status-badge";
+import { prisma } from "@/lib/prisma";
 
 type ApplicationStatus =
-  | "Applied"
-  | "Screening"
-  | "Interview"
-  | "Offer"
-  | "Rejected";
+  | "APPLIED"
+  | "SCREENING"
+  | "INTERVIEW"
+  | "OFFER"
+  | "REJECTED";
 
 type Application = {
   id: number;
@@ -17,42 +18,15 @@ type Application = {
   appliedAt: string;
 };
 
-const applications: Application[] = [
-  {
-    id: 1,
-    company: "Google",
-    position: "Junior Software Engineer",
-    location: "Singapore",
-    status: "Interview",
-    appliedAt: "Sep 5, 2026",
-  },
-  {
-    id: 2,
-    company: "Shopee",
-    position: "Backend Developer",
-    location: "Jakarta",
-    status: "Applied",
-    appliedAt: "Sep 3, 2026",
-  },
-  {
-    id: 3,
-    company: "Telkom Indonesia",
-    position: "IT Support",
-    location: "Batam",
-    status: "Screening",
-    appliedAt: "Sep 1, 2026",
-  },
-  {
-    id: 4,
-    company: "GoTo",
-    position: "Junior Engineer",
-    location: "Jakarta",
-    status: "Rejected",
-    appliedAt: "Aug 29, 2026",
-  },
-];
 
-export default function ApplicationsPage() {
+
+export default async function ApplicationsPage() {
+  const applications = await prisma.application.findMany({
+  orderBy: {
+    createdAt: "desc",
+  },
+});
+
   return (
     <main className="min-h-screen bg-zinc-950 p-8 text-white">
       <div className="mx-auto max-w-6xl">
@@ -124,7 +98,11 @@ export default function ApplicationsPage() {
                   </td>
 
                   <td className="px-5 py-4 text-zinc-400">
-                    {application.appliedAt}
+                    {application.appliedAt.toLocaleDateString("en-US", {
+                      day: "numeric",
+                      month: "short",
+                      year: "numeric",
+                    })}
                   </td>
                 </tr>
               ))}

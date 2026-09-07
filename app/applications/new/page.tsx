@@ -1,26 +1,6 @@
 "use client";
 import Link from "next/link";
-function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-  event.preventDefault();
-
-  const formData = new FormData(event.currentTarget);
-
-  const company = formData.get("company");
-  const position = formData.get("position");
-  const location = formData.get("location");
-  const status = formData.get("status");
-  const jobUrl = formData.get("jobUrl");
-  const notes = formData.get("notes");
-
-  console.log({
-    company,
-    position,
-    location,
-    status,
-    jobUrl,
-    notes,
-  });
-}
+import {createApplication} from "@/app/applications/action";
 
 export default function newApplicationPage(){
     return (
@@ -42,7 +22,7 @@ export default function newApplicationPage(){
                 </p>
             </div>
                 <form 
-                onSubmit={handleSubmit}
+                action={createApplication}
                 className="mt-8 space-y-6">
                     <label
                         htmlFor="company"
@@ -59,16 +39,16 @@ export default function newApplicationPage(){
                     />
 
                     <label
-                        htmlFor="application"
+                        htmlFor="position"
                         className="m-2 block text-sm font-medium"
                     >
-                        Application
+                        Position
                     </label>
                     <input
-                        id="application"
-                        name="application"
+                        id="position"
+                        name="position"
                         type="text"
-                        placeholder="ex. Junio Web Developer"
+                        placeholder="ex. Junior Web Developer"
                         className="w-full rounded-lg border border-zinc-800 bg-zinc-900 px-4 py-3 outline-none transition focus:border-zinc-600"
                     />
 
@@ -99,11 +79,11 @@ export default function newApplicationPage(){
                             className="w-full rounded-lg border border-zinc-800 bg-zinc-900 px-4 py-3 outline-none transition focus:border-zinc-600"
                             defaultValue="Applied"
                         >
-                            <option value="Applied">Applied</option>
-                            <option value="Screening">Screening</option>
-                            <option value="Interview">Interview</option>
-                            <option value="Offer">Offer</option>
-                            <option value="Rejected">Rejected</option>
+                            <option value="APPLIED">Applied</option>
+                            <option value="SCREENING">Screening</option>
+                            <option value="INTERVIEW">Interview</option>
+                            <option value="OFFER">Offer</option>
+                            <option value="REJECTED">Rejected</option>
                         </select>
                     </div>
 
