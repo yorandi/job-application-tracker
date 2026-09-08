@@ -9,9 +9,7 @@ type PageProps = {
   }>;
 };
 
-export default async function EditApplicationPage({
-  params,
-}: PageProps) {
+export default async function EditApplicationPage({ params }: PageProps) {
   const { id } = await params;
 
   const application = await prisma.application.findUnique({
@@ -24,10 +22,7 @@ export default async function EditApplicationPage({
     notFound();
   }
 
-  const updateAction = updateApplication.bind(
-    null,
-    application.id
-  );
+  const updateAction = updateApplication.bind(null, application.id);
 
   return (
     <main className="min-h-screen bg-zinc-950 p-8 text-white">
@@ -39,19 +34,11 @@ export default async function EditApplicationPage({
           ← Back
         </Link>
 
-        <h1 className="mt-6 text-3xl font-bold">
-          Edit Application
-        </h1>
+        <h1 className="mt-6 text-3xl font-bold">Edit Application</h1>
 
-        <form
-          action={updateAction}
-          className="mt-8 space-y-6"
-        >
+        <form action={updateAction} className="mt-8 space-y-6">
           <div>
-            <label
-              htmlFor="company"
-              className="mb-2 block text-sm"
-            >
+            <label htmlFor="company" className="mb-2 block text-sm">
               Company
             </label>
 
@@ -64,10 +51,7 @@ export default async function EditApplicationPage({
           </div>
 
           <div>
-            <label
-              htmlFor="position"
-              className="mb-2 block text-sm"
-            >
+            <label htmlFor="position" className="mb-2 block text-sm">
               Position
             </label>
 
@@ -80,10 +64,7 @@ export default async function EditApplicationPage({
           </div>
 
           <div>
-            <label
-              htmlFor="location"
-              className="mb-2 block text-sm"
-            >
+            <label htmlFor="location" className="mb-2 block text-sm">
               Location
             </label>
 
@@ -96,10 +77,7 @@ export default async function EditApplicationPage({
           </div>
 
           <div>
-            <label
-              htmlFor="status"
-              className="mb-2 block text-sm"
-            >
+            <label htmlFor="status" className="mb-2 block text-sm">
               Status
             </label>
 
@@ -118,10 +96,7 @@ export default async function EditApplicationPage({
           </div>
 
           <div>
-            <label
-              htmlFor="jobUrl"
-              className="mb-2 block text-sm"
-            >
+            <label htmlFor="jobUrl" className="mb-2 block text-sm">
               Job URL
             </label>
 
@@ -134,10 +109,7 @@ export default async function EditApplicationPage({
           </div>
 
           <div>
-            <label
-              htmlFor="notes"
-              className="mb-2 block text-sm"
-            >
+            <label htmlFor="notes" className="mb-2 block text-sm">
               Notes
             </label>
 

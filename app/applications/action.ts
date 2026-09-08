@@ -4,11 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { redirect } from "next/navigation";
 
 type ApplicationStatus =
-  | "APPLIED"
-  | "SCREENING"
-  | "INTERVIEW"
-  | "OFFER"
-  | "REJECTED";
+  "APPLIED" | "SCREENING" | "INTERVIEW" | "OFFER" | "REJECTED";
 
 export async function createApplication(formData: FormData) {
   const company = formData.get("company") as string;
@@ -32,10 +28,7 @@ export async function createApplication(formData: FormData) {
   redirect("/applications");
 }
 
-export async function updateApplication(
-  id: number,
-  formData: FormData
-) {
+export async function updateApplication(id: number, formData: FormData) {
   const company = formData.get("company") as string;
   const position = formData.get("position") as string;
   const location = formData.get("location") as string;
