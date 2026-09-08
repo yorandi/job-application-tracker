@@ -82,7 +82,13 @@ export default async function ApplicationsPage() {
                   className="border-b border-zinc-800 last:border-none hover:bg-zinc-900/50"
                 >
                   <td className="px-5 py-4 font-medium">
-                    {application.company}
+                    <Link
+                      href={`/applications/${application.id}`}
+                      className="hover:underline"
+                    >
+                      {application.company}
+                    </Link>
+                    
                   </td>
 
                   <td className="px-5 py-4 text-zinc-300">

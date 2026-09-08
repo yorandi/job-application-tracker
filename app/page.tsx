@@ -1,5 +1,6 @@
 import StatusBadge from "@/components/status-badge";
 import Link from "next/link";
+import { prisma } from "@/lib/prisma";
 type Stat = 
   {
     title:string;
@@ -22,66 +23,27 @@ const stats: Stat[] = [
 ]
 
 type ApplicationStatus = 
-  |"Applied"
-  |"Screening"
-  |"Interview"
-  |"Offer"
-  |"Rejected";
-
+  |"APPLIED"
+  |"SCREENING"
+  |"INTERVIEW"
+  |"OFFER"
+  |"REJECTED";
 type Application = {
-  id:number;
-  company:string;
-  position:string;
-  status:ApplicationStatus;
-  appliedAt:string;
+  id: number;
+  company: string;
+  position: string;
+  location: string;
+  status: ApplicationStatus;
+  appliedAt: string;
+};
 
-}
 
-const applications: Application[] = [
-  {
-    id:1,
-    company:"Google",
-    position:"Junior Software Engineer",
-    status:"Interview",
-    appliedAt:"Sep 5, 2026"
-  },
-  {
-    id:2,
-    company:"Meta",
-    position:"Backend Developer",
-    status:"Applied",
-    appliedAt:"Sep 10, 2026"
-  },
-  {
-    id:3,
-    company:"Telkom Indonesia",
-    position:"IT Support",
-    status:"Offer",
-    appliedAt:"Sep 15, 2026"
-  },
-  {
-    id:4,
-    company:"GoTo",
-    position:"Junior Engineer",
-    status:"Rejected",
-    appliedAt:"Sep 20, 2026"
-  }
-]
-function getStatusClass(status: ApplicationStatus){
-  switch(status){
-    case "Applied":
-      return "bg-blue-500/10 text-blue-400";
-    case "Screening":
-      return "bg-yellow-500/10 text-yellow-400";
-    case "Interview":
-      return "bg-purple-500/10 text-purple-400";
-    case "Offer":
-      return "bg-green-500/10 text-green-400";
-    case "Rejected":
-      return "bg-red-500/10 text-red-400";
-  }
-}
-export default function Home() {
+export default async function Home() {
+  const applications = await prisma.application.findMany({
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
   return (
     <main className= "min-h-screen flex bg-zinc-950 text-white">
 
@@ -149,7 +111,12 @@ export default function Home() {
             </div>
 
             <button className="rounded-lg bg-white px-4 py-2 text-sm font-medium text-black">
-              Add Application
+              <Link
+                href="/applications"
+              >
+                Add Application
+              </Link>
+              
             </button>
           </div>
           <div className="overflow-hidden rounded-xl border border-zinc-800">
@@ -186,8 +153,12 @@ export default function Home() {
                       <StatusBadge status={application.status} />
                     </td>
                     <td className="px-5 py-4 text-zinc-400">
-                      {application.appliedAt}
-                    </td>
+                    {application.appliedAt.toLocaleDateString("en-US", {
+                      day: "numeric",
+                      month: "short",
+                      year: "numeric",
+                    })}
+                  </td>
                   </tr>
                 ))}
               </tbody>
