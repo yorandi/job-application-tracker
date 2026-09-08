@@ -25,7 +25,7 @@ export default async function EditApplicationPage({ params }: PageProps) {
   const updateAction = updateApplication.bind(null, application.id);
 
   return (
-    <main className="min-h-screen bg-zinc-950 p-8 text-white">
+    <main className="p-8">
       <div className="mx-auto max-w-2xl">
         <Link
           href={`/applications/${application.id}`}

@@ -4,7 +4,7 @@ import { createApplication } from "@/app/applications/action";
 
 export default function newApplicationPage() {
   return (
-    <main className="min-h-screen bg-zinc-950 p-8 text-white">
+    <main className="p-8">
       <div className="mx-auto max-w-2xl">
         <Link
           href="/applications"

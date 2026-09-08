@@ -70,14 +70,8 @@ export default async function ApplicationsPage({ searchParams }: PageProps) {
   });
 
   return (
-    <main className="min-h-screen bg-zinc-950 p-8 text-white">
+    <main className="p-8">
       <div className="mx-auto max-w-6xl">
-        <Link
-          href="/"
-          className="text-sm text-zinc-400 transition hover:text-white mx-5"
-        >
-          &larr; Back to Dashboard
-        </Link>
         <div className="mt-6 flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-bold">Applications</h1>

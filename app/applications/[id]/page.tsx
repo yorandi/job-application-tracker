@@ -23,7 +23,7 @@ export default async function ApplicationDetailPage({ params }: pageProps) {
   const deleteAction = deleteApplication.bind(null, application.id);
 
   return (
-    <main className="min-h-screen bg-zinc-950 p-8 text-white">
+    <main className="p-8">
       <div className="mx-auto max-w-3xl">
         <Link
           href="/applications"
