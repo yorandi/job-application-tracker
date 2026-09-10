@@ -26,7 +26,7 @@ View detailed information about each application and track its recruitment journ
 Every status change is recorded, providing a clear timeline of the application's progress.
 
 Recruitment Pipeline
-![Pipeline](./public/screenshot/Pipeline.png)
+![Pipeline](./public/screenshot/pipeline.png)
 
 Visualize job applications through a recruitment pipeline consisting of Applied, Screening, Interview, and Offer stages.
 
