@@ -1,6 +1,12 @@
 import Sidebar from "@/components/sidebar";
-import { requireUser } from "@/lib/auth-user";
 
+import { requireUser } from "@/lib/auth-user";
+type SidebarProps = {
+  user: {
+    name: string;
+    email: string;
+  };
+};
 export default async function DashboardLayout({
   children,
 }: {
@@ -12,7 +18,7 @@ export default async function DashboardLayout({
     <div className="flex min-h-screen">
       <Sidebar
         user={{
-          name: user.name,
+          name: user.name || "User",
           email: user.email,
         }}
       />

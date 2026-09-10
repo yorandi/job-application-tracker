@@ -1,10 +1,11 @@
 import Link from "next/link";
-import { prisma } from "@/lib/prisma";
-import StatusBadge from "@/components/status-badge";
-import { requireUser } from "@/lib/auth-user";
 
-export default async function Home() {
-  const user = await requireUser();
+import { prisma } from "@/lib/prisma";
+import { requireUserId } from "@/lib/auth-user";
+import StatusBadge from "@/components/status-badge";
+
+export default async function DashboardPage() {
+  const userId = await requireUserId();
 
   const [
     totalApplications,
@@ -15,173 +16,124 @@ export default async function Home() {
   ] = await Promise.all([
     prisma.application.count({
       where: {
-        userId: user.id,
+        userId,
       },
     }),
 
     prisma.application.count({
       where: {
-        userId: user.id,
+        userId,
         status: "INTERVIEW",
       },
     }),
 
     prisma.application.count({
       where: {
-        userId: user.id,
+        userId,
         status: "OFFER",
       },
     }),
 
     prisma.application.count({
       where: {
-        userId: user.id,
+        userId,
         status: "REJECTED",
       },
     }),
 
     prisma.application.findMany({
       where: {
-        userId: user.id,
+        userId,
       },
-
       orderBy: {
         createdAt: "desc",
       },
-
       take: 5,
     }),
   ]);
 
-  const stats = [
-    {
-      title: "Total Applications",
-      value: totalApplications,
-    },
-    {
-      title: "Interviews",
-      value: totalInterviews,
-    },
-    {
-      title: "Offers",
-      value: totalOffers,
-    },
-    {
-      title: "Rejected",
-      value: totalRejected,
-    },
-  ];
-
   return (
     <main className="p-8">
-      <section className="flex-1 p-8">
-        <h2 className="text-3xl font-bold">Dashboard</h2>
+      <div className="mx-auto max-w-7xl">
+        <div>
+          <h1 className="text-3xl font-bold">Dashboard</h1>
 
-        <p className="mt-2 text-zinc-400">
-          Track and manage your job applications.
-        </p>
-
-        <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
-          {stats.map((stat) => (
-            <div
-              key={stat.title}
-              className="rounded-xl border border-zinc-800 bg-zinc-900 p-5"
-            >
-              <p className="text-sm text-zinc-400">{stat.title}</p>
-
-              <p className="mt-2 text-3xl font-bold">{stat.value}</p>
-            </div>
-          ))}
+          <p className="mt-2 text-zinc-400">
+            Overview of your job applications.
+          </p>
         </div>
 
-        <div className="mt-10">
-          <div className="mb-4 flex items-center justify-between">
-            <div>
-              <h3 className="text-xl font-semibold">Recent Applications</h3>
+        <div className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-5">
+            <p className="text-sm text-zinc-400">Total Applications</p>
 
-              <p className="text-sm text-zinc-400">
+            <p className="mt-2 text-3xl font-bold">{totalApplications}</p>
+          </div>
+
+          <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-5">
+            <p className="text-sm text-zinc-400">Interviews</p>
+
+            <p className="mt-2 text-3xl font-bold">{totalInterviews}</p>
+          </div>
+
+          <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-5">
+            <p className="text-sm text-zinc-400">Offers</p>
+
+            <p className="mt-2 text-3xl font-bold">{totalOffers}</p>
+          </div>
+
+          <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-5">
+            <p className="text-sm text-zinc-400">Rejected</p>
+
+            <p className="mt-2 text-3xl font-bold">{totalRejected}</p>
+          </div>
+        </div>
+
+        <div className="mt-8 rounded-xl border border-zinc-800 bg-zinc-900">
+          <div className="flex items-center justify-between border-b border-zinc-800 p-5">
+            <div>
+              <h2 className="font-bold text-2xl">Recent Applications</h2>
+
+              <p className="mt-1 text-sm text-zinc-500">
                 Your latest job applications.
               </p>
             </div>
 
             <Link
-              href="/applications/new"
-              className="rounded-lg bg-white px-4 py-2 text-sm font-medium text-black transition hover:bg-zinc-200"
+              href="/applications"
+              className="text-sm text-zinc-400 transition hover:text-white"
             >
-              + Add Application
+              View all
             </Link>
           </div>
 
-          <div className="overflow-hidden rounded-xl border border-zinc-800">
-            <table className="w-full text-left">
-              <thead className="border-b border-zinc-800 bg-zinc-900">
-                <tr>
-                  <th className="px-5 py-3 text-sm font-medium text-zinc-400">
-                    Company
-                  </th>
+          <div className="divide-y divide-zinc-800">
+            {recentApplications.length > 0 ? (
+              recentApplications.map((application) => (
+                <Link
+                  key={application.id}
+                  href={`/applications/${application.id}`}
+                  className="flex items-center justify-between p-5 transition hover:bg-zinc-800/50"
+                >
+                  <div>
+                    <p className="font-medium">{application.company}</p>
 
-                  <th className="px-5 py-3 text-sm font-medium text-zinc-400">
-                    Position
-                  </th>
+                    <p className="mt-1 text-sm text-zinc-500">
+                      {application.position}
+                    </p>
+                  </div>
 
-                  <th className="px-5 py-3 text-sm font-medium text-zinc-400">
-                    Status
-                  </th>
-
-                  <th className="px-5 py-3 text-sm font-medium text-zinc-400">
-                    Applied
-                  </th>
-                </tr>
-              </thead>
-
-              <tbody>
-                {recentApplications.length > 0 ? (
-                  recentApplications.map((application) => (
-                    <tr
-                      key={application.id}
-                      className="border-b border-zinc-800 last:border-none hover:bg-zinc-900/50"
-                    >
-                      <td className="px-5 py-4 font-medium">
-                        <Link
-                          href={`/applications/${application.id}`}
-                          className="hover:underline"
-                        >
-                          {application.company}
-                        </Link>
-                      </td>
-
-                      <td className="px-5 py-4 text-zinc-300">
-                        {application.position}
-                      </td>
-
-                      <td className="px-5 py-4">
-                        <StatusBadge status={application.status} />
-                      </td>
-
-                      <td className="px-5 py-4 text-zinc-400">
-                        {application.appliedAt.toLocaleDateString("en-US", {
-                          day: "numeric",
-                          month: "short",
-                          year: "numeric",
-                        })}
-                      </td>
-                    </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td
-                      colSpan={4}
-                      className="px-5 py-12 text-center text-zinc-500"
-                    >
-                      No applications yet.
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
+                  <StatusBadge status={application.status} />
+                </Link>
+              ))
+            ) : (
+              <div className="p-8 text-center text-sm text-zinc-500">
+                No applications yet.
+              </div>
+            )}
           </div>
         </div>
-      </section>
+      </div>
     </main>
   );
 }

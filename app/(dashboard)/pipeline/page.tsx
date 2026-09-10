@@ -1,6 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import PipelineCard from "@/components/pipeline-card";
-import { requireUser } from "@/lib/auth-user";
+import { requireUserId } from "@/lib/auth-user";
 
 const columns = [
   {
@@ -22,10 +22,10 @@ const columns = [
 ] as const;
 
 export default async function PipelinePage() {
-  const user = await requireUser();
+  const userId = await requireUserId();
   const applications = await prisma.application.findMany({
     where: {
-      userId: user.id,
+      userId,
 
       status: {
         not: "REJECTED",

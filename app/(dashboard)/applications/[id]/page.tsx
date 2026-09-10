@@ -2,8 +2,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import StatusBadge from "@/components/status-badge";
-import { deleteApplication } from "../action";
-import { requireUser } from "@/lib/auth-user";
+import { deleteApplication } from "../actions";
+import { requireUserId } from "@/lib/auth-user";
+import DeleteApplicationButton from "@/components/delete-application-button";
 
 type pageProps = {
   params: Promise<{
@@ -12,12 +13,12 @@ type pageProps = {
 };
 
 export default async function ApplicationDetailPage({ params }: pageProps) {
-  const user = await requireUser();
+  const userId = await requireUserId();
   const { id } = await params;
   const application = await prisma.application.findUnique({
     where: {
       id: Number(id),
-      userId: user.id,
+      userId,
     },
 
     include: {
@@ -146,14 +147,7 @@ export default async function ApplicationDetailPage({ params }: pageProps) {
             >
               Edit
             </Link>
-            <form action={deleteAction}>
-              <button
-                type="submit"
-                className="rounded-lg border border-red-900 bg-red-950 px-6 py-3 text-red-400 hover:cursor-pointer"
-              >
-                Delete
-              </button>
-            </form>
+            <DeleteApplicationButton applicationId={application.id} />
           </div>
         </div>
       </div>

@@ -1,48 +1,48 @@
 import { prisma } from "@/lib/prisma";
 import ApplicationStatusChart from "@/components/application-status-chart";
-import { requireUser } from "@/lib/auth-user";
+import { requireUserId } from "@/lib/auth-user";
 
 export default async function AnalyticsPage() {
-  const user = await requireUser();
+  const userId = await requireUserId();
   const [totalApplications, applied, screening, interviews, offers, rejected] =
     await Promise.all([
       prisma.application.count({
         where: {
-          userId: user.id,
+          userId,
         },
       }),
 
       prisma.application.count({
         where: {
-          userId: user.id,
+          userId,
           status: "APPLIED",
         },
       }),
 
       prisma.application.count({
         where: {
-          userId: user.id,
+          userId,
           status: "SCREENING",
         },
       }),
 
       prisma.application.count({
         where: {
-          userId: user.id,
+          userId,
           status: "INTERVIEW",
         },
       }),
 
       prisma.application.count({
         where: {
-          userId: user.id,
+          userId,
           status: "OFFER",
         },
       }),
 
       prisma.application.count({
         where: {
-          userId: user.id,
+          userId,
           status: "REJECTED",
         },
       }),
@@ -78,7 +78,7 @@ export default async function AnalyticsPage() {
 
   const applications = await prisma.application.findMany({
     where: {
-      userId: user.id,
+      userId,
     },
     select: {
       appliedAt: true,
