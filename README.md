@@ -2,7 +2,7 @@
 
 JobTrack is deployed on Vercel and available as a live production application.
 
-Live Demo: https://YOUR-JOBTRACK-URL.vercel.app
+Live Demo: https://job-application-tracks.vercel.app
 
 Create an account to explore the dashboard, manage job applications, track recruitment progress, and view analytics.
 
@@ -10,7 +10,7 @@ Create an account to explore the dashboard, manage job applications, track recru
 
 # Dashboard
 
-![Job Track Dashboard](./public/screenshot/dashboard.png)
+![Job Track Dashboard](./public/screenshot/Dashboard.png)
 Get a quick overview of your job search progress, including total applications, interviews, offers, rejections, and recent application activity.
 
 # Application Management
