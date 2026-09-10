@@ -22,6 +22,11 @@ export async function createApplication(formData: FormData) {
       status,
       jobUrl: jobUrl || null,
       notes: notes || null,
+      applicationHistories: {
+        create: {
+          status,
+        },
+      },
     },
   });
 
@@ -32,9 +37,26 @@ export async function updateApplication(id: number, formData: FormData) {
   const company = formData.get("company") as string;
   const position = formData.get("position") as string;
   const location = formData.get("location") as string;
+
   const status = formData.get("status") as ApplicationStatus;
+
   const jobUrl = formData.get("jobUrl") as string;
   const notes = formData.get("notes") as string;
+
+  const currentApplication = await prisma.application.findUnique({
+    where: {
+      id,
+    },
+    select: {
+      status: true,
+    },
+  });
+
+  if (!currentApplication) {
+    throw new Error("Application not found");
+  }
+
+  const statusChanged = currentApplication.status !== status;
 
   await prisma.application.update({
     where: {
@@ -48,6 +70,14 @@ export async function updateApplication(id: number, formData: FormData) {
       status,
       jobUrl: jobUrl || null,
       notes: notes || null,
+
+      ...(statusChanged && {
+        applicationHistories: {
+          create: {
+            status,
+          },
+        },
+      }),
     },
   });
 
@@ -62,4 +92,24 @@ export async function deleteApplication(id: number) {
   });
 
   redirect("/applications");
+}
+
+export async function updateApplicationStatus(
+  id: number,
+  status: "APPLIED" | "SCREENING" | "INTERVIEW" | "OFFER" | "REJECTED",
+) {
+  await prisma.application.update({
+    where: {
+      id,
+    },
+    data: {
+      status,
+
+      applicationHistories: {
+        create: {
+          status,
+        },
+      },
+    },
+  });
 }

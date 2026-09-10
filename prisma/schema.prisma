@@ -12,13 +12,14 @@ datasource db {
   provider = "postgresql"
 }
 
-enum ApplicationStatus{
+enum ApplicationStatus {
   APPLIED
   SCREENING
   INTERVIEW
   OFFER
   REJECTED
 }
+
 model Application {
   id        Int               @id @default(autoincrement())
   company   String
@@ -30,4 +31,29 @@ model Application {
   appliedAt DateTime          @default(now())
   createdAt DateTime          @default(now())
   updatedAt DateTime          @updatedAt
+
+  applicationHistories ApplicationHistory[]
+
+  userId Int?
+  user   User? @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model ApplicationHistory {
+  id        Int               @id @default(autoincrement())
+  status    ApplicationStatus
+  createdAt DateTime          @default(now())
+
+  applicationId Int
+  application   Application @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+}
+
+model User {
+  id           Int           @id @default(autoincrement())
+  name         String
+  email        String        @unique
+  passwordHash String
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  applications Application[]
 }

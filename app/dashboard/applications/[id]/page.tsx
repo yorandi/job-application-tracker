@@ -16,6 +16,14 @@ export default async function ApplicationDetailPage({ params }: pageProps) {
     where: {
       id: Number(id),
     },
+
+    include: {
+      applicationHistories: {
+        orderBy: {
+          createdAt: "desc",
+        },
+      },
+    },
   });
   if (!application) {
     notFound();
@@ -84,6 +92,48 @@ export default async function ApplicationDetailPage({ params }: pageProps) {
               <p className="mt-1 whitespace-pre-wrap">
                 {application.notes || "-"}
               </p>
+            </div>
+            <div className="mt-10 border-t border-zinc-800 pt-8">
+              <h2 className="text-lg font-semibold">Activity Timeline</h2>
+
+              <p className="mt-1 text-sm text-zinc-500">
+                Status history for this application.
+              </p>
+
+              <div className="mt-6 space-y-5">
+                {application.applicationHistories.length > 0 ? (
+                  application.applicationHistories.map((history, index) => (
+                    <div key={history.id} className="relative flex gap-4">
+                      <div className="flex flex-col items-center">
+                        <div className="h-3 w-3 rounded-full bg-white" />
+
+                        {index <
+                          application.applicationHistories.length - 1 && (
+                          <div className="mt-1 h-full w-px bg-zinc-800" />
+                        )}
+                      </div>
+
+                      <div className="pb-5">
+                        <StatusBadge status={history.status} />
+
+                        <p className="mt-2 text-sm text-zinc-500">
+                          {history.createdAt.toLocaleString("en-US", {
+                            day: "numeric",
+                            month: "short",
+                            year: "numeric",
+                            hour: "2-digit",
+                            minute: "2-digit",
+                          })}
+                        </p>
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <p className="text-sm text-zinc-500">
+                    No activity history yet.
+                  </p>
+                )}
+              </div>
             </div>
           </div>
           <div className="mt-8 flex justify-end gap-3">

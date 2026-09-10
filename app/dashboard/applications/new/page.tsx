@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { createApplication } from "@/app/applications/action";
+import { createApplication } from "@/app/dashboard/applications/action";
 
 export default function newApplicationPage() {
   return (

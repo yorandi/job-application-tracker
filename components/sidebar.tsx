@@ -7,6 +7,7 @@ import {
   LayoutDashboard,
   BriefcaseBusiness,
   ChartNoAxesColumnIncreasing,
+  Columns3,
 } from "lucide-react";
 
 const navigation = [
@@ -19,6 +20,11 @@ const navigation = [
     name: "Applications",
     href: "/applications",
     icon: BriefcaseBusiness,
+  },
+  {
+    name: "Pipeline",
+    href: "/pipeline",
+    icon: Columns3,
   },
   {
     name: "Analytics",
