@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { logout } from "@/app/(dashboard)/actions";
+import { LogOut } from "lucide-react";
 
 import {
   LayoutDashboard,
@@ -33,11 +35,18 @@ const navigation = [
   },
 ];
 
-export default function Sidebar() {
+type SidebarProps = {
+  user: {
+    name: string;
+    email: string;
+  };
+};
+
+export default function Sidebar({ user }: SidebarProps) {
   const pathname = usePathname();
 
   return (
-    <aside className="w-64 border-r border-zinc-800 bg-zinc-950 p-6">
+    <aside className="flex w-64 flex-col border-r border-zinc-800 bg-zinc-950 p-6">
       <div>
         <h1 className="text-xl font-bold text-white">JobTrack</h1>
 
@@ -70,6 +79,21 @@ export default function Sidebar() {
           );
         })}
       </nav>
+      <div className="mt-auto border-t border-zinc-800 pt-5">
+        <p className="truncate text-sm font-medium">{user.name}</p>
+
+        <p className="truncate text-xs text-zinc-500">{user.email}</p>
+
+        <form action={logout}>
+          <button
+            type="submit"
+            className="mt-4 flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm text-zinc-400 transition hover:bg-zinc-900 hover:text-white"
+          >
+            <LogOut size={16} />
+            Sign out
+          </button>
+        </form>
+      </div>
     </aside>
   );
 }

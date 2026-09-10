@@ -34,8 +34,8 @@ model Application {
 
   applicationHistories ApplicationHistory[]
 
-  userId Int?
-  user   User? @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model ApplicationHistory {

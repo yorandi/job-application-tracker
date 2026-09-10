@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-import { updateApplicationStatus } from "@/app/dashboard/applications/action";
+import { updateApplicationStatus } from "@/app/(dashboard)/applications/action";
 
 type ApplicationStatus =
   "APPLIED" | "SCREENING" | "INTERVIEW" | "OFFER" | "REJECTED";

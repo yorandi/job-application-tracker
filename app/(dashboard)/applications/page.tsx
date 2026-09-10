@@ -1,6 +1,7 @@
 import Link from "next/link";
 import StatusBadge from "@/components/status-badge";
 import { prisma } from "@/lib/prisma";
+import { requireUser } from "@/lib/auth-user";
 
 type ApplicationStatus =
   "APPLIED" | "SCREENING" | "INTERVIEW" | "OFFER" | "REJECTED";
@@ -22,6 +23,7 @@ type PageProps = {
 };
 
 export default async function ApplicationsPage({ searchParams }: PageProps) {
+  const user = await requireUser();
   const params = await searchParams;
 
   const search = params.search || "";
@@ -29,6 +31,8 @@ export default async function ApplicationsPage({ searchParams }: PageProps) {
 
   const applications = await prisma.application.findMany({
     where: {
+      userId: user.id,
+
       AND: [
         search
           ? {
@@ -57,8 +61,7 @@ export default async function ApplicationsPage({ searchParams }: PageProps) {
 
         status
           ? {
-              status: status as
-                "APPLIED" | "SCREENING" | "INTERVIEW" | "OFFER" | "REJECTED",
+              status: status as ApplicationStatus,
             }
           : {},
       ],

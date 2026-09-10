@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import StatusBadge from "@/components/status-badge";
 import { deleteApplication } from "../action";
+import { requireUser } from "@/lib/auth-user";
 
 type pageProps = {
   params: Promise<{
@@ -11,10 +12,12 @@ type pageProps = {
 };
 
 export default async function ApplicationDetailPage({ params }: pageProps) {
+  const user = await requireUser();
   const { id } = await params;
   const application = await prisma.application.findUnique({
     where: {
       id: Number(id),
+      userId: user.id,
     },
 
     include: {

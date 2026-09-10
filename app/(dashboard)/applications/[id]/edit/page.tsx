@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { updateApplication } from "../../action";
+import { requireUser } from "@/lib/auth-user";
 
 type PageProps = {
   params: Promise<{
@@ -11,10 +12,12 @@ type PageProps = {
 
 export default async function EditApplicationPage({ params }: PageProps) {
   const { id } = await params;
+  const user = await requireUser();
 
   const application = await prisma.application.findUnique({
     where: {
       id: Number(id),
+      userId: user.id,
     },
   });
 

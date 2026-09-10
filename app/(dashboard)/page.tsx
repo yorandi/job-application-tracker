@@ -1,8 +1,11 @@
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import StatusBadge from "@/components/status-badge";
+import { requireUser } from "@/lib/auth-user";
 
 export default async function Home() {
+  const user = await requireUser();
+
   const [
     totalApplications,
     totalInterviews,
@@ -10,30 +13,42 @@ export default async function Home() {
     totalRejected,
     recentApplications,
   ] = await Promise.all([
-    prisma.application.count(),
+    prisma.application.count({
+      where: {
+        userId: user.id,
+      },
+    }),
 
     prisma.application.count({
       where: {
+        userId: user.id,
         status: "INTERVIEW",
       },
     }),
 
     prisma.application.count({
       where: {
+        userId: user.id,
         status: "OFFER",
       },
     }),
 
     prisma.application.count({
       where: {
+        userId: user.id,
         status: "REJECTED",
       },
     }),
 
     prisma.application.findMany({
+      where: {
+        userId: user.id,
+      },
+
       orderBy: {
         createdAt: "desc",
       },
+
       take: 5,
     }),
   ]);
