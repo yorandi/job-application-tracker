@@ -129,10 +129,12 @@ export default async function AnalyticsPage() {
   ];
 
   return (
-    <main className="p-8">
+    <main className="px-4 py-6 sm:p-6 lg:p-8">
       <div className="mx-auto max-w-7xl">
         <div>
-          <h1 className="text-3xl font-bold">Analytics</h1>
+          <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
+            Analytics
+          </h1>
 
           <p className="mt-2 text-zinc-400">
             Insights into your job application performance.
@@ -147,12 +149,14 @@ export default async function AnalyticsPage() {
             >
               <p className="text-sm text-zinc-400">{stat.title}</p>
 
-              <p className="mt-2 text-3xl font-bold">{stat.value}</p>
+              <p className="mt-2 text-2xl font-bold tracking-tight sm:text-3xl">
+                {stat.value}
+              </p>
             </div>
           ))}
         </div>
 
-        <div className="mt-8 rounded-xl border border-zinc-800 bg-zinc-900 p-6">
+        <div className="mt-8 rounded-xl border border-zinc-800 bg-zinc-900 p-4 sm:p-6">
           <div className="mb-6">
             <h2 className="text-xl font-semibold">Application Status</h2>
 
@@ -164,7 +168,7 @@ export default async function AnalyticsPage() {
           <ApplicationStatusChart data={chartData} />
         </div>
 
-        <div className="mt-8 rounded-xl border border-zinc-800 bg-zinc-900 p-6">
+        <div className="mt-8 rounded-xl border border-zinc-800 bg-zinc-900 p-4 sm:p-6">
           <div className="mb-6">
             <h2 className="text-xl font-semibold">Applications Over Time</h2>
 

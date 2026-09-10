@@ -16,7 +16,7 @@ export default function DeleteApplicationButton({ applicationId }: Props) {
       <button
         type="button"
         onClick={() => setConfirming(true)}
-        className="rounded-lg border border-red-900 bg-red-950 px-4 py-2 text-red-400"
+        className="min-h-11 rounded-lg border border-red-900 bg-red-950 px-4 py-2 text-red-400"
       >
         Delete
       </button>
@@ -26,13 +26,13 @@ export default function DeleteApplicationButton({ applicationId }: Props) {
   const deleteAction = deleteApplication.bind(null, applicationId);
 
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex flex-wrap items-center gap-3 rounded-lg border border-red-900/60 bg-red-950/20 p-3">
       <span className="text-sm text-zinc-400">Delete this application?</span>
 
       <form action={deleteAction}>
         <button
           type="submit"
-          className="rounded-lg bg-red-600 px-3 py-2 text-sm font-medium text-white"
+          className="min-h-11 rounded-lg bg-red-600 px-3 py-2 text-sm font-medium text-white"
         >
           Yes, delete
         </button>
@@ -41,7 +41,7 @@ export default function DeleteApplicationButton({ applicationId }: Props) {
       <button
         type="button"
         onClick={() => setConfirming(false)}
-        className="rounded-lg border border-zinc-700 px-3 py-2 text-sm"
+        className="min-h-11 rounded-lg border border-zinc-700 px-3 py-2 text-sm"
       >
         Cancel
       </button>

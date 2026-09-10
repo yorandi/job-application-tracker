@@ -20,7 +20,10 @@ export default function ApplicationForm() {
   );
 
   return (
-    <form action={formAction} className="mt-8 space-y-6">
+    <form
+      action={formAction}
+      className="mt-6 space-y-5 rounded-xl border border-zinc-800 bg-zinc-900/30 p-4 sm:p-6"
+    >
       <div>
         <label htmlFor="company" className="mb-2 block text-sm font-medium">
           Company
@@ -131,7 +134,7 @@ export default function ApplicationForm() {
           name="notes"
           rows={5}
           placeholder="Interview notes, recruiter contact..."
-          className="w-full resize-none rounded-lg border border-zinc-800 bg-zinc-900 px-4 py-3 outline-none transition focus:border-zinc-600"
+          className="w-full resize-y rounded-lg border border-zinc-800 bg-zinc-900 px-4 py-3 outline-none transition focus:border-zinc-600"
         />
 
         {state.errors?.notes && (
@@ -145,7 +148,7 @@ export default function ApplicationForm() {
         </div>
       )}
 
-      <div className="flex gap-3">
+      <div className="flex flex-col gap-3 border-t border-zinc-800 pt-5 text-center sm:flex-row">
         <button
           type="submit"
           disabled={isPending}

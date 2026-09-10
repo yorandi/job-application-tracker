@@ -39,7 +39,10 @@ export default function EditApplicationForm({
   );
 
   return (
-    <form action={formAction} className="mt-8 space-y-6">
+    <form
+      action={formAction}
+      className="mt-6 space-y-5 rounded-xl border border-zinc-800 bg-zinc-900/30 p-4 sm:p-6"
+    >
       <div>
         <label htmlFor="company" className="mb-2 block text-sm font-medium">
           Company
@@ -155,7 +158,7 @@ export default function EditApplicationForm({
         </div>
       )}
 
-      <div className="flex gap-3">
+      <div className="flex flex-col gap-3 border-t border-zinc-800 pt-5 text-center sm:flex-row">
         <button
           type="submit"
           disabled={isPending}

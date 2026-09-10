@@ -4,7 +4,7 @@ import ApplicationForm from "@/components/application-form";
 
 export default function NewApplicationPage() {
   return (
-    <main className="p-8">
+    <main className="px-4 py-6 sm:p-6 lg:p-8">
       <div className="mx-auto max-w-2xl">
         <Link
           href="/applications"
@@ -14,7 +14,9 @@ export default function NewApplicationPage() {
         </Link>
 
         <div className="mt-6">
-          <h1 className="text-3xl font-bold">Add Application</h1>
+          <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
+            Add Application
+          </h1>
 
           <p className="mt-2 text-zinc-400">
             Add a new job application to your tracker.

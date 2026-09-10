@@ -37,17 +37,19 @@ export default async function PipelinePage() {
   });
 
   return (
-    <main className="p-8">
+    <main className="px-4 py-6 sm:p-6 lg:p-8">
       <div className="mx-auto max-w-7xl">
         <div>
-          <h1 className="text-3xl font-bold">Application Pipeline</h1>
+          <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
+            Application Pipeline
+          </h1>
 
           <p className="mt-2 text-zinc-400">
             Track applications through each stage.
           </p>
         </div>
 
-        <div className="mt-8 grid grid-cols-1 gap-5 xl:grid-cols-4">
+        <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 2xl:grid-cols-4">
           {columns.map((column) => {
             const columnApplications = applications.filter(
               (application) => application.status === column.status,
@@ -56,7 +58,7 @@ export default async function PipelinePage() {
             return (
               <section
                 key={column.status}
-                className="rounded-xl border border-zinc-800 bg-zinc-900/50"
+                className="min-w-0 rounded-xl border border-zinc-800 bg-zinc-900/50"
               >
                 <div className="flex items-center justify-between border-b border-zinc-800 p-4">
                   <h2 className="font-semibold">{column.title}</h2>

@@ -47,7 +47,7 @@ export default function PipelineCard({ application }: PipelineCardProps) {
   }
 
   return (
-    <div className="rounded-lg border border-zinc-800 bg-zinc-950 p-4">
+    <div className="min-w-0 break-words rounded-lg border border-zinc-800 bg-zinc-950 p-4">
       <Link
         href={`/applications/${application.id}`}
         className="font-semibold hover:underline"
@@ -61,11 +61,11 @@ export default function PipelineCard({ application }: PipelineCardProps) {
         <p className="mt-2 text-xs text-zinc-500">{application.location}</p>
       )}
 
-      <div className="mt-4 flex gap-2">
+      <div className="mt-4 flex flex-wrap gap-2">
         {previousStatus && (
           <button
             onClick={() => changeStatus(previousStatus)}
-            className="rounded-md border border-zinc-700 px-2.5 py-1.5 text-xs text-zinc-300 transition hover:bg-zinc-800"
+            className="min-h-11 rounded-md border border-zinc-700 px-2.5 py-1.5 text-xs text-zinc-300 transition hover:bg-zinc-800"
           >
             ← Back
           </button>
@@ -74,14 +74,14 @@ export default function PipelineCard({ application }: PipelineCardProps) {
         {nextStatus && (
           <button
             onClick={() => changeStatus(nextStatus)}
-            className="rounded-md bg-white px-2.5 py-1.5 text-xs font-medium text-black transition hover:bg-zinc-200"
+            className="min-h-11 rounded-md bg-white px-2.5 py-1.5 text-xs font-medium text-black transition hover:bg-zinc-200"
           >
             Next →
           </button>
         )}
         <button
           onClick={() => changeStatus("REJECTED")}
-          className="rounded-md px-2.5 py-1.5 text-xs text-red-400 transition hover:bg-red-950"
+          className="min-h-11 rounded-md px-2.5 py-1.5 text-xs text-red-400 transition hover:bg-red-950"
         >
           Reject
         </button>

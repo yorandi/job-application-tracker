@@ -53,10 +53,12 @@ export default async function DashboardPage() {
   ]);
 
   return (
-    <main className="p-8">
+    <main className="px-4 py-6 sm:p-6 lg:p-8">
       <div className="mx-auto max-w-7xl">
         <div>
-          <h1 className="text-3xl font-bold">Dashboard</h1>
+          <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
+            Dashboard
+          </h1>
 
           <p className="mt-2 text-zinc-400">
             Overview of your job applications.
@@ -67,32 +69,42 @@ export default async function DashboardPage() {
           <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-5">
             <p className="text-sm text-zinc-400">Total Applications</p>
 
-            <p className="mt-2 text-3xl font-bold">{totalApplications}</p>
+            <p className="mt-2 text-2xl font-bold tracking-tight sm:text-3xl">
+              {totalApplications}
+            </p>
           </div>
 
           <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-5">
             <p className="text-sm text-zinc-400">Interviews</p>
 
-            <p className="mt-2 text-3xl font-bold">{totalInterviews}</p>
+            <p className="mt-2 text-2xl font-bold tracking-tight sm:text-3xl">
+              {totalInterviews}
+            </p>
           </div>
 
           <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-5">
             <p className="text-sm text-zinc-400">Offers</p>
 
-            <p className="mt-2 text-3xl font-bold">{totalOffers}</p>
+            <p className="mt-2 text-2xl font-bold tracking-tight sm:text-3xl">
+              {totalOffers}
+            </p>
           </div>
 
           <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-5">
             <p className="text-sm text-zinc-400">Rejected</p>
 
-            <p className="mt-2 text-3xl font-bold">{totalRejected}</p>
+            <p className="mt-2 text-2xl font-bold tracking-tight sm:text-3xl">
+              {totalRejected}
+            </p>
           </div>
         </div>
 
         <div className="mt-8 rounded-xl border border-zinc-800 bg-zinc-900">
-          <div className="flex items-center justify-between border-b border-zinc-800 p-5">
+          <div className="flex flex-wrap items-center justify-between gap-3 border-b border-zinc-800 p-5">
             <div>
-              <h2 className="font-bold text-2xl">Recent Applications</h2>
+              <h2 className="text-lg font-semibold sm:text-xl">
+                Recent Applications
+              </h2>
 
               <p className="mt-1 text-sm text-zinc-500">
                 Your latest job applications.
@@ -113,7 +125,7 @@ export default async function DashboardPage() {
                 <Link
                   key={application.id}
                   href={`/applications/${application.id}`}
-                  className="flex items-center justify-between p-5 transition hover:bg-zinc-800/50"
+                  className="flex flex-wrap items-center justify-between gap-3 p-4 sm:p-5 transition hover:bg-zinc-800/50"
                 >
                   <div>
                     <p className="font-medium">{application.company}</p>
@@ -129,6 +141,12 @@ export default async function DashboardPage() {
             ) : (
               <div className="p-8 text-center text-sm text-zinc-500">
                 No applications yet.
+                <Link
+                  href="/applications/new"
+                  className="mt-3 block font-medium text-blue-400 hover:text-blue-300"
+                >
+                  Add your first application &rarr;
+                </Link>
               </div>
             )}
           </div>

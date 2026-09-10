@@ -4,8 +4,8 @@ import RegisterForm from "@/components/register-form";
 
 export default function RegisterPage() {
   return (
-    <main className="flex min-h-screen items-center justify-center p-6">
-      <div className="w-full max-w-md">
+    <main className="flex min-h-dvh items-center justify-center px-4 py-10 sm:p-6">
+      <div className="w-full max-w-md rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 shadow-xl sm:p-8">
         <div>
           <h1 className="text-3xl font-bold">Create account</h1>
 

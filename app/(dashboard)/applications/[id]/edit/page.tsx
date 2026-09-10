@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
-import { updateApplication } from "../../actions";
 import { requireUserId } from "@/lib/auth-user";
 import EditApplicationForm from "@/components/edit-application-form";
 
@@ -26,10 +25,8 @@ export default async function EditApplicationPage({ params }: PageProps) {
     notFound();
   }
 
-  const updateAction = updateApplication.bind(null, application.id);
-
   return (
-    <main className="p-8">
+    <main className="px-4 py-6 sm:p-6 lg:p-8">
       <div className="mx-auto max-w-2xl">
         <Link
           href={`/applications/${application.id}`}
@@ -38,7 +35,9 @@ export default async function EditApplicationPage({ params }: PageProps) {
           ← Back
         </Link>
 
-        <h1 className="mt-6 text-3xl font-bold">Edit Application</h1>
+        <h1 className="mt-6 text-2xl font-bold tracking-tight sm:text-3xl">
+          Edit Application
+        </h1>
 
         <EditApplicationForm application={application} />
       </div>

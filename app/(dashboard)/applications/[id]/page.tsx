@@ -2,7 +2,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import StatusBadge from "@/components/status-badge";
-import { deleteApplication } from "../actions";
 import { requireUserId } from "@/lib/auth-user";
 import DeleteApplicationButton from "@/components/delete-application-button";
 
@@ -32,10 +31,9 @@ export default async function ApplicationDetailPage({ params }: pageProps) {
   if (!application) {
     notFound();
   }
-  const deleteAction = deleteApplication.bind(null, application.id);
 
   return (
-    <main className="p-8">
+    <main className="px-4 py-6 sm:p-6 lg:p-8">
       <div className="mx-auto max-w-3xl">
         <Link
           href="/applications"
@@ -44,10 +42,12 @@ export default async function ApplicationDetailPage({ params }: pageProps) {
           &larr; Back to Applications
         </Link>
 
-        <div className="mt-6 rounded-xl border border-zinc-800 bg-zinc-900 p-6">
-          <div className="flex item-start justify-between">
+        <div className="mt-6 rounded-xl border border-zinc-800 bg-zinc-900 p-4 sm:p-6">
+          <div className="flex flex-col items-start justify-between gap-4 sm:flex-row">
             <div>
-              <h1 className="text-3xl font-bold">{application.company}</h1>
+              <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
+                {application.company}
+              </h1>
               <p className="mt-3 text-lg text-zinc-300">
                 {application.position}
               </p>
@@ -57,7 +57,7 @@ export default async function ApplicationDetailPage({ params }: pageProps) {
             </div>
           </div>
 
-          <div className="mt-6 p-6">
+          <div className="mt-6 border-t border-zinc-800 pt-6">
             <div>
               <p className="text-sm text-zinc-500">Location</p>
 
@@ -140,7 +140,7 @@ export default async function ApplicationDetailPage({ params }: pageProps) {
               </div>
             </div>
           </div>
-          <div className="mt-8 flex justify-end gap-3">
+          <div className="mt-8 flex flex-wrap items-center justify-end gap-3">
             <Link
               href={`/applications/${application.id}/edit`}
               className="rounded-lg bg-white px-6 py-3 font-medium text-black"
