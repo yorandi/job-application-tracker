@@ -8,39 +8,42 @@ Create an account to explore the dashboard, manage job applications, track recru
 
 # Preview
 
-Dashboard
+# Dashboard
 
-Get a quick overview of your job search progress, including total applications, interviews, offers, rejections, and recent application activity.
 ![Job Track Dashboard](./public/screenshot/dashboard.png)
+Get a quick overview of your job search progress, including total applications, interviews, offers, rejections, and recent application activity.
 
-Application Management
+# Application Management
 
-Manage all job applications in one place. Users can create, search, filter, view, edit, and delete applications while keeping each account's data isolated.
 ![Application Management](./public/screenshot/Application.png)
+Manage all job applications in one place. Users can create, search, filter, view, edit, and delete applications while keeping each account's data isolated.
 
-Application Details & Activity History
+# Application Details & Activity History
+
 ![Application Detail](./public/screenshot/Detail-Application.png)
 
 View detailed information about each application and track its recruitment journey through the activity history.
 
 Every status change is recorded, providing a clear timeline of the application's progress.
 
-Recruitment Pipeline
+# Recruitment Pipeline
+
 ![Pipeline](./public/screenshot/pipeline.png)
 
 Visualize job applications through a recruitment pipeline consisting of Applied, Screening, Interview, and Offer stages.
 
 Users can move applications between recruitment stages while JobTrack automatically records their status history.
 
-Analytics
+# Analytics
+
 ![Analytics](./public/screenshot/analytics.png)
 
 Monitor job search performance through statistics and data visualizations based on application activity and recruitment status.
 
-Responsive Design
-![Responsive Design](./public/screenshot/mobile-view.png)
+# Responsive Design
 
 JobTrack is designed to work across desktop and mobile devices, providing access to application tracking wherever the user needs it.
+![Responsive Design](./public/screenshot/mobile-view.png)
 
 # JobTrack
 
