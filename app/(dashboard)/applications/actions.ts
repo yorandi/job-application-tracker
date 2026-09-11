@@ -124,7 +124,7 @@ export async function updateApplication(
         notes: notes || null,
 
         ...(statusChanged && {
-          histories: {
+          applicationHistories: {
             create: {
               status,
             },
